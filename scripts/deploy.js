@@ -5,12 +5,17 @@ async function main() {
     const one_Years_In_Second = 365 * 24 * 60 * 60;
     const unlockedTime = currentTimestampInSeconds + one_Years_In_Second;
 
-    const lockedAmount = hre.ethers.utils.parseEther("1");
-    console.log(lockedAmount);
+    const lockedAmount = hre.ethers.parseEther("1");
+    // console.log(lockedAmount);
 
-    console.log(currentTimestampInSeconds);
-    console.log(one_Years_In_Second);
-    console.log(unlockedTime);
+    const withdrawers = await hre.ethers.getContractFactory("withdrawers");
+    const deployWithdrawers = await withdrawers.deploy(unlockedTime, { value: lockedAmount });
+    await deployWithdrawers.waitForDeployment();
+    console.log(`Contract contain 1 ether & address: ${deployWithdrawers.target}`);
+
+    // console.log(currentTimestampInSeconds);
+    // console.log(one_Years_In_Second);
+    // console.log(unlockedTime);
 }
 
 main().catch((error) => {
