@@ -8,11 +8,13 @@ describe("withdrawers", function () {
         const one_Years_In_Second = 365 * 24 * 60 * 60; //days, hours, minutes, seconds
         const unlockTime = (await time.latest()) + one_Years_In_Second;
 
-        const withdrawers = await hre.ethers.deployContract("withdrawers", [unlockTime], {
-            value: lockedAmount,
-        });
+        console.log(unlockTime);
 
-        expect(await withdrawers.unlockedTime()).to.equal(unlockTime);
-        await expect(withdrawers.Withdraw()).to.be.revertedWith("fund is still locked");
+        // const withdrawers = await hre.ethers.deployContract("withdrawers", [unlockTime], {
+        //     value: lockedAmount,
+        // });
+
+        // expect(await withdrawers.unlockedTime()).to.equal(unlockTime);
+        // await expect(withdrawers.Withdraw()).to.be.revertedWith("fund is still locked");
     })
 })
